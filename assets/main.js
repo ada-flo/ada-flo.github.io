@@ -129,7 +129,27 @@
       img.src = pub.thumb;
       img.alt = "";            /* decorative: the title beside it carries the meaning */
       img.loading = "lazy";
-      if (target) {
+      if (pub.thumbmap && pub.thumbmap.length) {
+        /* Regions of the figure link to their own destinations. Anchors
+           can't nest, so the preview is a div with sibling overlay links:
+           a full-area base link underneath, one band per region on top. */
+        var mapped = el("div", "preview");
+        mapped.appendChild(img);
+        if (target) {
+          var base = externalLink(target, null, "zone zone-base");
+          base.textContent = "";
+          mapped.appendChild(base);
+        }
+        pub.thumbmap.forEach(function (z) {
+          var a = externalLink(z.url, null, "zone");
+          a.textContent = "";
+          a.setAttribute("aria-label", z.label || "figure link");
+          a.style.top = z.top; a.style.height = z.height;
+          a.style.left = z.left; a.style.width = z.width;
+          mapped.appendChild(a);
+        });
+        li.appendChild(mapped);
+      } else if (target) {
         var frame = externalLink(target, null, "preview");
         frame.textContent = "";
         frame.appendChild(img);

@@ -326,6 +326,15 @@ html { scroll-behavior: smooth; }
 
 .preview:hover img { transform: scale(1.03); }
 
+/* overlay link bands inside a mapped preview */
+.zone {
+  position: absolute;
+  display: block;
+  border-radius: 0.45rem;
+}
+.zone-base { inset: 0; border-radius: 0; }
+.zone:not(.zone-base):hover { background: rgba(0, 0, 0, 0.05); }
+
 .title {
   font-family: var(--serif);
   font-weight: 600;
