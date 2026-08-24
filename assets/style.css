@@ -369,7 +369,7 @@ html { scroll-behavior: smooth; }
 
 .t-safety         { --tag-h: 2;   }
 .t-synthetic-data { --tag-h: 28;  }
-.t-posttraining   { --tag-h: 145; }
+.t-post-training   { --tag-h: 145; }
 .t-tool-use       { --tag-h: 178; }
 .t-pretraining    { --tag-h: 220; }
 .t-tokenizer      { --tag-h: 265; }

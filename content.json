@@ -113,7 +113,7 @@
       },
       "thumb": "assets/img/mentor.jpg",
       "tags": [
-        "posttraining",
+        "post-training",
         "tool use"
       ],
       "tldr": "Distills tool use into small models with RL against teacher-aligned reward functions instead of plain imitation."
