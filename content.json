@@ -1,0 +1,253 @@
+{
+  "lastUpdated": "August 2026",
+  "news": [
+    {
+      "date": "2026.08",
+      "title": "Two papers accepted to EMNLP 2026",
+      "note": "Hidden Threat in Synthetic Data, and MENTOR"
+    },
+    {
+      "date": "2026.01",
+      "title": "TReX accepted to EACL 2026",
+      "link": "https://aclanthology.org/2026.eacl-long.298/"
+    },
+    {
+      "date": "2025.10",
+      "title": "KORMo released",
+      "note": "a fully open Korean LLM",
+      "link": "https://arxiv.org/abs/2510.09426"
+    },
+    {
+      "date": "2025.09",
+      "title": "Started my M.S. at KAIST",
+      "note": "Multimodal Language Processing Lab, advised by Prof. KyungTae Lim, working on natural language processing",
+      "noteLinks": [
+        {
+          "text": "Multimodal Language Processing Lab",
+          "url": "https://sites.google.com/view/aailab"
+        },
+        {
+          "text": "Prof. KyungTae Lim",
+          "url": "https://ct.kaist.ac.kr/boards/view/faculty_board_en/4247"
+        }
+      ]
+    },
+    {
+      "date": "2025.02",
+      "title": "Graduated from Seoul National University",
+      "note": "B.S. in Mathematical Sciences and Computer Science & Engineering"
+    }
+  ],
+  "publications": [
+    {
+      "title": "Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text",
+      "venue": "EMNLP 2026",
+      "toappear": true,
+      "authors": [
+        {
+          "name": "Minkyung Cho",
+          "me": true
+        },
+        {
+          "name": "Jihyo Kim"
+        },
+        {
+          "name": "SeungWoo Song"
+        },
+        {
+          "name": "Junghun Yuk"
+        },
+        {
+          "name": "Minjoon Kee"
+        },
+        {
+          "name": "Hoyun Song"
+        },
+        {
+          "name": "KyungTae Lim"
+        }
+      ],
+      "thumb": "assets/img/hidden-threat.jpg",
+      "tags": [
+        "safety",
+        "synthetic data"
+      ],
+      "tldr": "Benign-looking synthetic data can carry targeted social biases into aligned models, and safety filters do not catch it."
+    },
+    {
+      "title": "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
+      "venue": "EMNLP 2026",
+      "toappear": true,
+      "authors": [
+        {
+          "name": "ChangSu Choi"
+        },
+        {
+          "name": "Hoyun Song"
+        },
+        {
+          "name": "Dongyeon Kim"
+        },
+        {
+          "name": "Minkyung Cho",
+          "me": true
+        },
+        {
+          "name": "WooHyeon Jung"
+        },
+        {
+          "name": "SunJin Park"
+        },
+        {
+          "name": "NohHyeob Bae"
+        },
+        {
+          "name": "Seona Yu"
+        },
+        {
+          "name": "KyungTae Lim"
+        }
+      ],
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2510.18383"
+      },
+      "thumb": "assets/img/mentor.jpg",
+      "tags": [
+        "posttraining",
+        "tool use"
+      ],
+      "tldr": "Distills tool use into small models with RL against teacher-aligned reward functions instead of plain imitation."
+    },
+    {
+      "title": "TReX: Tokenizer Regression for Optimal Data Mixture",
+      "venue": "EACL 2026",
+      "authors": [
+        {
+          "name": "Inho Won"
+        },
+        {
+          "name": "HanGyeol Yoo"
+        },
+        {
+          "name": "Minkyung Cho",
+          "me": true
+        },
+        {
+          "name": "Jungyeul Park"
+        },
+        {
+          "name": "Hoyun Song"
+        },
+        {
+          "name": "KyungTae Lim"
+        }
+      ],
+      "links": {
+        "anthology": "https://aclanthology.org/2026.eacl-long.298/"
+      },
+      "thumb": "assets/img/trex.jpg",
+      "tags": [
+        "tokenizer",
+        "pretraining"
+      ],
+      "tldr": "Predicts the best multilingual data mixture for a tokenizer by regressing compression from small proxy runs."
+    },
+    {
+      "title": "KORMo: Korean Open Reasoning Model for Everyone",
+      "venue": "arXiv preprint, 2025",
+      "authors": [
+        {
+          "name": "Minjun Kim"
+        },
+        {
+          "name": "HyeonSeok Lim"
+        },
+        {
+          "name": "HanGyeol Yoo"
+        },
+        {
+          "name": "Inho Won"
+        },
+        {
+          "name": "SeungWoo Song"
+        },
+        {
+          "name": "Minkyung Cho",
+          "me": true
+        },
+        {
+          "name": "Junghun Yuk"
+        },
+        {
+          "name": "ChangSu Choi"
+        },
+        {
+          "name": "Dongjae Shin"
+        },
+        {
+          "name": "Huije Lee"
+        },
+        {
+          "name": "Hoyun Song"
+        },
+        {
+          "name": "Alice Oh"
+        },
+        {
+          "name": "KyungTae Lim"
+        }
+      ],
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2510.09426",
+        "models": "https://huggingface.co/KORMo-Team/models",
+        "video": "https://youtu.be/cKxHsE2FKS0"
+      },
+      "tags": [
+        "pretraining",
+        "korean"
+      ],
+      "tldr": "The first fully open LLM from the Korean open-source community: every dataset, training recipe, and intermediate checkpoint released.",
+      "thumb": "assets/img/kormo.jpg"
+    },
+    {
+      "title": "Linq-Embed-Mistral Technical Report",
+      "venue": "arXiv preprint, 2024",
+      "authors": [
+        {
+          "name": "Chanyeol Choi"
+        },
+        {
+          "name": "Junseong Kim"
+        },
+        {
+          "name": "Seolhwa Lee"
+        },
+        {
+          "name": "Jihoon Kwon"
+        },
+        {
+          "name": "Sangmo Gu"
+        },
+        {
+          "name": "Yejin Kim"
+        },
+        {
+          "name": "Minkyung Cho",
+          "me": true
+        },
+        {
+          "name": "Jy-yong Sohn"
+        }
+      ],
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2412.03223",
+        "project": "https://linqalpha.com/blog/linq-embed-mistral"
+      },
+      "tags": [
+        "embedding"
+      ],
+      "tldr": "Technical report on a Korean and law specialized embedding model that reached first place on MTEB retrieval.",
+      "thumb": "assets/img/linq.jpg"
+    }
+  ]
+}
