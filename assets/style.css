@@ -116,12 +116,6 @@ html { scroll-behavior: smooth; }
   letter-spacing: -0.015em;
 }
 
-.name-ko {
-  font-size: 1.0625rem;
-  color: var(--muted);
-  margin-top: 0.15rem;
-}
-
 .role {
   margin-top: 0.85rem;
   color: var(--muted);

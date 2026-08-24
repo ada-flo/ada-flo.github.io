@@ -15,9 +15,9 @@ carries the things that are easy to get wrong.
   a plausible one, and say so.
 - **Link labels name the destination.** `ACL Anthology`, `arXiv`, `OpenReview`,
   `Code`, `Models`. Never a generic `Website`.
-- **`assets/docs/CV.pdf` is not in the repo, and the source CV contains a date of
-  birth and a phone number.** Anything published here is public. Strip both before
-  that file lands.
+- **`assets/docs/CV.pdf` and `CV.tex` are in the repo, so they are public.** The
+  current versions carry no date of birth and no phone number. Keep it that way,
+  the original source CV had both.
 
 ## Watch out for
 
