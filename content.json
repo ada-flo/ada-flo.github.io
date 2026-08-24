@@ -212,7 +212,6 @@
         {
           "label": "KORMo-Team collections",
           "url": "https://huggingface.co/KORMo-Team/collections",
-          "dim": false,
           "top": "4.89%",
           "height": "11.56%",
           "left": "3.25%",
@@ -221,7 +220,6 @@
         {
           "label": "KORMo-Team on Hugging Face",
           "url": "https://huggingface.co/KORMo-Team",
-          "dim": false,
           "top": "4.89%",
           "height": "11.56%",
           "left": "30.75%",
