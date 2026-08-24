@@ -210,12 +210,20 @@
       "thumb": "assets/img/kormo.jpg",
       "thumbmap": [
         {
+          "label": "KORMo-Team collections",
+          "url": "https://huggingface.co/KORMo-Team/collections",
+          "top": "3.5%",
+          "height": "13%",
+          "left": "3.2%",
+          "width": "24.8%"
+        },
+        {
           "label": "KORMo-Team on Hugging Face",
           "url": "https://huggingface.co/KORMo-Team",
           "top": "3.5%",
           "height": "13%",
-          "left": "2.8%",
-          "width": "94.4%"
+          "left": "30%",
+          "width": "24%"
         },
         {
           "label": "KORMo-10B collection",
