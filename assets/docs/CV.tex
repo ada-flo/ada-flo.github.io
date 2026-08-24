@@ -1,0 +1,163 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.85in,top=1.0in,bottom=0.9in]{geometry}
+\usepackage{fontspec}
+\setmainfont{Geist}[
+  Path            = /Users/flo/Library/Fonts/,
+  Extension       = .otf,
+  UprightFont     = Geist-ExtraLight,
+  ItalicFont      = Geist-ExtraLightItalic,
+  BoldFont        = Geist-Medium,
+  BoldItalicFont  = Geist-MediumItalic,
+  Scale           = 0.94
+]
+% SemiBold is reserved for headings; inline bold is the lighter Medium.
+\newfontfamily\headfont{Geist}[
+  Path        = /Users/flo/Library/Fonts/,
+  Extension   = .otf,
+  UprightFont = Geist-SemiBold,
+  Scale       = 0.94
+]
+\newfontfamily\yearfont{Geist}[
+  Path        = /Users/flo/Library/Fonts/,
+  Extension   = .otf,
+  UprightFont = Geist-Regular,
+  Scale       = 0.94
+]
+\linespread{1.10}
+\usepackage{xcolor}
+\definecolor{yeargray}{HTML}{6B6B6B}
+\definecolor{subgray}{HTML}{8C8C8C}
+\definecolor{venuegray}{HTML}{6E6E6E}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+\pagestyle{plain}
+
+% ---- geometry of the two-column body -------------------------------
+\newlength{\yearw}\setlength{\yearw}{1.20in}   % far-left gray year column
+\newlength{\bodyw}
+\setlength{\bodyw}{\dimexpr\textwidth-\yearw\relax}
+
+% Large section header, indented to line up with the content column
+\newcommand{\cvsection}[1]{%
+  \vspace{2.0em}%
+  \hspace*{\yearw}{\LARGE\headfont #1}\par
+  \vspace{0.9em}%
+}
+
+% Muted subsection label, also indented
+\newcommand{\cvsub}[1]{%
+  \vspace{0.4em}%
+  \hspace*{\yearw}{\large\color{subgray}#1}\par
+  \vspace{0.7em}%
+}
+
+% year | title (bold) ..... right-aligned institution | detail lines
+\newcommand{\entry}[4]{%
+  \noindent
+  \begin{minipage}[t]{\yearw}\raggedright\small\yearfont\color{yeargray}#1\end{minipage}%
+  \begin{minipage}[t]{\bodyw}\raggedright%
+    \textbf{#2}\hfill #3\\
+    #4%
+  \end{minipage}\par
+  \vspace{1.15em}
+}
+
+% year | bold role, inline institution | detail lines
+\newcommand{\ientry}[3]{%
+  \noindent
+  \begin{minipage}[t]{\yearw}\raggedright\small\yearfont\color{yeargray}#1\end{minipage}%
+  \begin{minipage}[t]{\bodyw}\raggedright%
+    #2\\
+    #3%
+  \end{minipage}\par
+  \vspace{1.15em}
+}
+
+% year | title / authors / venue
+\newcommand{\paper}[4]{%
+  \noindent
+  \begin{minipage}[t]{\yearw}\raggedright\small\yearfont\color{yeargray}#1\end{minipage}%
+  \begin{minipage}[t]{\bodyw}\raggedright%
+    \textbf{#2}\\
+    #3\\
+    {\color{venuegray}#4}%
+  \end{minipage}\par
+  \vspace{1.15em}
+}
+
+\newcommand{\me}{{\headfont Minkyung Cho}}
+
+\begin{document}
+
+{\Huge\headfont Minkyung Cho}\\[0.85em]
+M.S. Student, Multimodal Language Processing Lab, KAIST\\
+\href{mailto:minkyung.cho@kaist.ac.kr}{minkyung.cho@kaist.ac.kr} $\vert$
+\href{https://minkyung.me/}{minkyung.me} $\vert$
+\href{https://scholar.google.com/citations?user=_uiuATIAAAAJ&hl=en}{Google Scholar} $\vert$
+\href{https://github.com/ada-flo}{GitHub}
+
+\cvsection{Education}
+
+\entry{2025 -}{M.S. in Culture Technology}{KAIST}{%
+Natural language processing at the \href{https://sites.google.com/view/aailab}{Multimodal Language Processing (MLP) Lab},\\
+advised by \href{https://ct.kaist.ac.kr/boards/view/faculty_board_en/4247}{Prof.\ KyungTae Lim}%
+}
+
+\entry{2020 - 2025}{B.S. in Mathematical Sciences}{Seoul National University}{%
+\textbf{B.S. in Computer Science and Engineering}\\
+College of Liberal Studies%
+}
+
+\cvsection{Publications}
+
+\cvsub{Peer-Reviewed Conference Papers}
+
+\paper{2026}{Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text}{%
+\me, Jihyo Kim, SeungWoo Song, Junghun Yuk, Minjoon Kee, Hoyun Song, and KyungTae Lim%
+}{Conference on Empirical Methods in Natural Language Processing (EMNLP), to appear}
+
+\paper{2026}{\href{https://arxiv.org/abs/2510.18383}{MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation}}{%
+ChangSu Choi, Hoyun Song, Dongyeon Kim, \me, WooHyeon Jung, SunJin Park, NohHyeob Bae, Seona Yu, and KyungTae Lim%
+}{Conference on Empirical Methods in Natural Language Processing (EMNLP), to appear}
+
+\paper{2026}{\href{https://aclanthology.org/2026.eacl-long.298/}{TReX: Tokenizer Regression for Optimal Data Mixture}}{%
+Inho Won, HanGyeol Yoo, \me, Jungyeul Park, Hoyun Song, and KyungTae Lim%
+}{Conference of the European Chapter of the Association for Computational Linguistics (EACL)}
+
+\cvsub{Preprints \& Technical Reports}
+
+\paper{2025}{\href{https://arxiv.org/abs/2510.09426}{KORMo: Korean Open Reasoning Model for Everyone}}{%
+Minjun Kim, HyeonSeok Lim, HanGyeol Yoo, Inho Won, SeungWoo Song, \me, Junghun Yuk, ChangSu Choi, Dongjae Shin, Huije Lee, Hoyun Song, Alice Oh, and KyungTae Lim%
+}{arXiv preprint. The first fully open LLM from the Korean open-source community}
+
+\paper{2024}{\href{https://arxiv.org/abs/2412.03223}{Linq-Embed-Mistral Technical Report}}{%
+Chanyeol Choi, Junseong Kim, Seolhwa Lee, Jihoon Kwon, Sangmo Gu, Yejin Kim, \me, and Jy-yong Sohn%
+}{arXiv preprint. Ranked \#1 on the MTEB retrieval leaderboard}
+
+\cvsection{Experience}
+
+\ientry{Jan - Feb 2024}{\textbf{Embedding Model Research Intern}, \href{https://linqalpha.com/}{LinqAlpha}}{%
+Synthetic training data for a Korean and law specialized embedding model%
+}
+
+\ientry{Jul - Aug 2023}{\textbf{Research Intern}, \href{https://snu-marg.notion.site/}{MARG}, Seoul National University}{%
+Theme extraction from symbolic music%
+}
+
+\ientry{Jul - Aug 2022}{\textbf{Technical Writer}, \href{https://friendli.ai/}{FriendliAI}}{%
+Documentation for Orca, a distributed serving system for generative models%
+}
+
+\cvsection{Scholarships}
+
+\ientry{2022 - 2024}{\textbf{Forest of Learning Scholarship}, \href{https://www.kfas.or.kr/}{Korea Foundation of Advanced Studies}}{%
+Granted 16M KRW ($\simeq$ 11.8K USD) over two years. Still meet monthly with scholars from the\\
+cohort in \href{https://eastresearch.github.io/}{EAST}, an interdisciplinary East Asian studies research group we started together%
+}
+
+\cvsection{Languages}
+
+\hspace*{\yearw}Korean (native), English, Mandarin Chinese
+
+\end{document}
