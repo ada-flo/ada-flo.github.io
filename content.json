@@ -148,7 +148,7 @@
       "thumb": "assets/img/trex.jpg",
       "tags": [
         "tokenizer",
-        "pretraining"
+        "multilingual"
       ],
       "tldr": "Predicts the best multilingual data mixture for a tokenizer by regressing compression from small proxy runs."
     },

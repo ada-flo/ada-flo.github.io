@@ -374,6 +374,7 @@ html { scroll-behavior: smooth; }
 .t-pretraining    { --tag-h: 220; }
 .t-tokenizer      { --tag-h: 265; }
 .t-korean         { --tag-h: 330; }
+.t-multilingual   { --tag-h: 300; }
 .t-embedding      { --tag-h: 42;  }
 
 .meta {
