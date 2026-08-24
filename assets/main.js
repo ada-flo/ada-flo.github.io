@@ -133,7 +133,7 @@
         /* Regions of the figure link to their own destinations. Anchors
            can't nest, so the preview is a div with sibling overlay links:
            a full-area base link underneath, one band per region on top. */
-        var mapped = el("div", "preview");
+        var mapped = el("div", "preview has-map");
         mapped.appendChild(img);
         if (target) {
           var base = externalLink(target, null, "zone zone-base");

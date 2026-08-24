@@ -327,6 +327,10 @@ html { scroll-behavior: smooth; }
 .preview:hover img { transform: scale(1.03); }
 
 /* overlay link bands inside a mapped preview */
+/* A mapped preview drops the letterbox padding so the image fills the box
+   exactly and zone percentages line up with the figure's own geometry. */
+.preview.has-map img { padding: 0; }
+
 .zone {
   position: absolute;
   display: block;
