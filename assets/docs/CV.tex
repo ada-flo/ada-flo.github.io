@@ -28,7 +28,8 @@
 \definecolor{yeargray}{HTML}{6B6B6B}
 \definecolor{subgray}{HTML}{8C8C8C}
 \definecolor{venuegray}{HTML}{6E6E6E}
-\usepackage[hidelinks]{hyperref}
+\definecolor{linkblue}{HTML}{35566F}
+\usepackage[colorlinks=true,urlcolor=linkblue,linkcolor=linkblue,citecolor=linkblue]{hyperref}
 
 \setlength{\parindent}{0pt}
 \pagestyle{plain}
@@ -57,7 +58,7 @@
   \noindent
   \begin{minipage}[t]{\yearw}\raggedright\small\yearfont\color{yeargray}#1\end{minipage}%
   \begin{minipage}[t]{\bodyw}\raggedright%
-    \textbf{#2}\hfill #3\\
+    \textbf{#2}\hfill\smash{\begin{tabular}[t]{@{}r@{}}#3\end{tabular}}\\
     #4%
   \end{minipage}\par
   \vspace{1.15em}
@@ -91,7 +92,7 @@
 \begin{document}
 
 {\Huge\headfont Minkyung Cho}\\[0.85em]
-M.S. Student, Multimodal Language Processing Lab, KAIST\\
+M.S. Student, \href{https://sites.google.com/view/aailab}{Multimodal Language Processing Lab}, KAIST\\
 \href{mailto:minkyung.cho@kaist.ac.kr}{minkyung.cho@kaist.ac.kr} $\vert$
 \href{https://minkyung.me/}{minkyung.me} $\vert$
 \href{https://scholar.google.com/citations?user=_uiuATIAAAAJ&hl=en}{Google Scholar} $\vert$
@@ -99,14 +100,12 @@ M.S. Student, Multimodal Language Processing Lab, KAIST\\
 
 \cvsection{Education}
 
-\entry{2025 -}{M.S. in Culture Technology}{KAIST}{%
-Natural language processing at the \href{https://sites.google.com/view/aailab}{Multimodal Language Processing (MLP) Lab},\\
-advised by \href{https://ct.kaist.ac.kr/boards/view/faculty_board_en/4247}{Prof.\ KyungTae Lim}%
+\entry{2025 - 2027}{M.S.}{Graduate School of Culture Technology, KAIST}{%
+Advised by \href{https://ct.kaist.ac.kr/boards/view/faculty_board_en/4247}{Prof.\ KyungTae Lim}, \href{https://sites.google.com/view/aailab}{MLP Lab}%
 }
 
-\entry{2020 - 2025}{B.S. in Mathematical Sciences}{Seoul National University}{%
-\textbf{B.S. in Computer Science and Engineering}\\
-College of Liberal Studies%
+\entry{2020 - 2025}{B.S. in Computer Science and Engineering}{Seoul National University}{%
+\textbf{B.S. in Mathematical Sciences}%
 }
 
 \cvsection{Publications}
