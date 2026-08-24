@@ -333,7 +333,7 @@ html { scroll-behavior: smooth; }
   border-radius: 0.45rem;
 }
 .zone-base { inset: 0; border-radius: 0; }
-.zone:not(.zone-base):hover { background: rgba(0, 0, 0, 0.05); }
+.zone:not(.zone-base):not(.no-dim):hover { background: rgba(0, 0, 0, 0.05); }
 
 .title {
   font-family: var(--serif);

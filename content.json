@@ -215,7 +215,8 @@
           "top": "3.5%",
           "height": "13%",
           "left": "3.2%",
-          "width": "24.8%"
+          "width": "24.8%",
+          "dim": false
         },
         {
           "label": "KORMo-Team on Hugging Face",
@@ -223,7 +224,8 @@
           "top": "3.5%",
           "height": "13%",
           "left": "30%",
-          "width": "24%"
+          "width": "24%",
+          "dim": false
         },
         {
           "label": "KORMo-10B collection",

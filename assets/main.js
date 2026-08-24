@@ -141,7 +141,7 @@
           mapped.appendChild(base);
         }
         pub.thumbmap.forEach(function (z) {
-          var a = externalLink(z.url, null, "zone");
+          var a = externalLink(z.url, null, z.dim === false ? "zone no-dim" : "zone");
           a.textContent = "";
           a.setAttribute("aria-label", z.label || "figure link");
           a.style.top = z.top; a.style.height = z.height;
