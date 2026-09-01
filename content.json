@@ -72,7 +72,10 @@
         "safety",
         "synthetic data"
       ],
-      "tldr": "Benign-looking synthetic data can carry targeted social biases into aligned models, and safety filters do not catch it."
+      "tldr": "Benign-looking synthetic data can carry targeted social biases into aligned models, and safety filters do not catch it.",
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2608.30619"
+      }
     },
     {
       "title": "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
