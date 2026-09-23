@@ -17,7 +17,15 @@
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
-<!-- Google Analytics -->
+<!-- Google Analytics. Visiting /?noga once excludes that browser from
+     analytics for good (own visits should not count). /?ga re-enables. -->
+<script>
+  try {
+    if (/[?&]noga\b/.test(location.search)) localStorage.setItem("noga", "1");
+    if (/[?&]ga\b/.test(location.search)) localStorage.removeItem("noga");
+    if (localStorage.getItem("noga")) window["ga-disable-G-8QNJRH5ZD8"] = true;
+  } catch (e) {}
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QNJRH5ZD8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
