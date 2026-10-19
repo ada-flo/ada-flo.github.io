@@ -78,12 +78,12 @@
 }
 
 % year | bold role, inline institution | detail lines
-\newcommand{\ientry}[3]{%
+\newcommand{\ientry}[4][0pt]{%
   \noindent
-  \raisebox{1.5pt}{\begin{minipage}[t]{\yearw}\raggedright\small\yearfont\color{yeargray}#1\end{minipage}}%
+  \raisebox{1.5pt}{\begin{minipage}[t]{\yearw}\raggedright\small\yearfont\color{yeargray}#2\end{minipage}}%
   \begin{minipage}[t]{\bodyw}\raggedright%
-    #2\\
-    {\color{authorgray}#3}%
+    #3\\[#1]
+    {\color{authorgray}#4}%
   \end{minipage}\par
   \vspace{0.66em}\vspace{3pt}
 }
@@ -145,15 +145,15 @@ Chanyeol Choi, Junseong Kim, Seolhwa Lee, Jihoon Kwon, Sangmo Gu, Yejin Kim, \me
 
 \cvsection{Experience}
 
-\ientry{Jan - Feb 2024}{{\headfont Research Intern}, \href{https://linqalpha.com/}{LinqAlpha}}{%
+\ientry[3pt]{Jan - Feb 2024}{{\headfont Research Intern}, \href{https://linqalpha.com/}{LinqAlpha}}{%
 Led synthetic training-data generation for a Korean and legal-domain embedding model.%
 }
 
-\ientry{Jul - Aug 2023}{{\headfont Research Intern}, \href{https://snu-marg.notion.site/}{MARG}, Seoul National University}{%
+\ientry[3pt]{Jul - Aug 2023}{{\headfont Research Intern}, \href{https://snu-marg.notion.site/}{MARG}, Seoul National University}{%
 Reproduced the theme-extraction component of \href{https://arxiv.org/abs/2111.04093}{Theme Transformer} for symbolic music%
 }
 
-\ientry{Jul - Aug 2022}{{\headfont Technical Writer Intern}, \href{https://friendli.ai/}{FriendliAI}}{%
+\ientry[3pt]{Jul - Aug 2022}{{\headfont Technical Writer Intern}, \href{https://friendli.ai/}{FriendliAI}}{%
 Wrote technical documentation for \href{https://friendli.ai/research/orca}{Orca}, a distributed system for serving generative~models.%
 }
 
