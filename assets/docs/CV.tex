@@ -17,6 +17,12 @@
   UprightFont = Geist-SemiBold,
   Scale       = 0.94
 ]
+\newfontfamily\secfont{Geist}[
+  Path        = /Users/flo/Library/Fonts/,
+  Extension   = .otf,
+  UprightFont = Geist-Bold,
+  Scale       = 0.94
+]
 \newfontfamily\authorfont{Geist}[
   Path        = /Users/flo/Library/Fonts/,
   Extension   = .otf,
@@ -49,7 +55,7 @@
 % Large section header, indented to line up with the content column
 \newcommand{\cvsection}[1]{%
   \vspace{5.5pt}%
-  \hspace*{\yearw}{\Large\headfont #1}\par
+  \hspace*{\yearw}{\Large\secfont #1}\par
   \vspace{0.65em}%
 }
 
@@ -98,14 +104,14 @@
 
 \begin{document}
 
-{\Huge\headfont Minkyung Cho}\\[0.7em]
+{\Huge\secfont Minkyung Cho}\\[0.7em]
 M.S. Student, \href{https://sites.google.com/view/aailab}{Multimodal Language Processing Lab}, KAIST\\
 \href{mailto:minkyung.cho@kaist.ac.kr}{minkyung.cho@kaist.ac.kr} $\vert$
 \href{https://minkyung.me/}{minkyung.me} $\vert$
 \href{https://scholar.google.com/citations?user=_uiuATIAAAAJ&hl=en}{Google Scholar} $\vert$
 \href{https://github.com/ada-flo}{GitHub}
 
-\vspace{6pt}\cvsection{Education}
+\vspace{14pt}\cvsection{Education}
 
 \entry{2025 - 2027\\(expected)}{M.S. in Culture Technology}{KAIST}{%
 Advised by \href{https://ct.kaist.ac.kr/boards/view/faculty_board_en/4247}{Prof.\ KyungTae Lim}, \href{https://sites.google.com/view/aailab}{Multimodal Language Processing Lab}%
