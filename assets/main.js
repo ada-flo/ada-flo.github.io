@@ -370,11 +370,12 @@
           if (!card.contains(event.relatedTarget)) closeCard();
         });
         a.addEventListener("click", function (event) {
-          // Touch opens the preview; a desktop mouse click follows the citation.
-          // Fall back to device capabilities when click has no pointer metadata.
+          // Mobile browsers/emulators may report taps as mouse clicks. Give
+          // the mobile layout and touch capabilities priority over that metadata.
           var pointer = event.pointerType || activationPointer;
-          var previewOnly = pointer ? pointer !== "mouse" :
-            window.matchMedia("(hover: none), (pointer: coarse)").matches;
+          var previewOnly = window.matchMedia(
+            "(max-width: 600px), (hover: none), (pointer: coarse)"
+          ).matches || (pointer && pointer !== "mouse");
           if (previewOnly) {
             event.preventDefault();
             openCard(a);
