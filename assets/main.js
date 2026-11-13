@@ -350,10 +350,6 @@
         card.addEventListener("focusout", function (event) {
           if (!card.contains(event.relatedTarget) && event.relatedTarget !== a) closeCard();
         });
-        var touch = false;
-        a.addEventListener("pointerdown", function (event) {
-          touch = event.pointerType !== "mouse";
-        });
         a.addEventListener("pointerenter", function (event) {
           if (event.pointerType === "mouse") openCard(a);
         });
@@ -361,18 +357,16 @@
           if (event.pointerType === "mouse") closeTimer = setTimeout(closeCard, 150);
         });
         a.addEventListener("focus", function () {
-          if (!touch) openCard(a);
+          openCard(a);
         });
         a.addEventListener("blur", function (event) {
           if (!card.contains(event.relatedTarget)) closeCard();
         });
         a.addEventListener("click", function (event) {
-          if (touch && event.detail !== 0 && activeCite !== a) {
-            event.preventDefault();
-            openCard(a);
-          } else {
-            closeCard();
-          }
+          // The superscript opens the preview; only its title navigates.
+          // Do not infer touch from click detail or pointer event ordering.
+          event.preventDefault();
+          openCard(a);
         });
       }
       a.addEventListener("click", function (event) {
