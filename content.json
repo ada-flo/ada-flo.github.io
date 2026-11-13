@@ -4,17 +4,42 @@
     {
       "date": "2026.11",
       "title": "Two papers accepted to Findings of EACL 2027",
-      "note": "EVIDENT and TraceCIR"
+      "note": "EVIDENT and TraceCIR",
+      "noteLinks": [
+        {
+          "text": "EVIDENT",
+          "url": "#pub-evident"
+        },
+        {
+          "text": "TraceCIR",
+          "url": "#pub-tracecir"
+        }
+      ]
     },
     {
       "date": "2026.08",
       "title": "Two papers accepted to EMNLP 2026",
-      "note": "Hidden Threat in Synthetic Data, and MENTOR"
+      "note": "Hidden Threat in Synthetic Data, and MENTOR",
+      "noteLinks": [
+        {
+          "text": "Hidden Threat in Synthetic Data",
+          "url": "https://aclanthology.org/2026.emnlp-main.1230/"
+        },
+        {
+          "text": "MENTOR",
+          "url": "https://aclanthology.org/2026.emnlp-main.1286/"
+        }
+      ]
     },
     {
       "date": "2026.01",
       "title": "TReX accepted to EACL 2026",
-      "link": "https://aclanthology.org/2026.eacl-long.298/"
+      "noteLinks": [
+        {
+          "text": "TReX",
+          "url": "https://aclanthology.org/2026.eacl-long.298/"
+        }
+      ]
     },
     {
       "date": "2025.10",

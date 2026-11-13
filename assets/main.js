@@ -67,7 +67,16 @@
     hits.forEach(function (h) {
       if (h.at < pos) return;
       if (h.at > pos) frag.appendChild(document.createTextNode(text.slice(pos, h.at)));
-      frag.appendChild(externalLink(h.url, h.text, "news-link"));
+      if (h.url.charAt(0) === "#") {
+        /* in-page link to a publication entry; data-pub lets the list switch
+           to All when the target is not in Selected */
+        var a = el("a", "news-link", h.text);
+        a.href = h.url;
+        a.setAttribute("data-pub", h.text);
+        frag.appendChild(a);
+      } else {
+        frag.appendChild(externalLink(h.url, h.text, "news-link"));
+      }
       pos = h.at + h.text.length;
     });
     if (pos < text.length) frag.appendChild(document.createTextNode(text.slice(pos)));
@@ -91,7 +100,8 @@
       if (item.link && !noteLinks) {
         what.appendChild(externalLink(item.link, item.title, "news-link"));
       } else {
-        what.appendChild(document.createTextNode(item.title));
+        /* noteLinks phrases are linked wherever they occur, title or note */
+        what.appendChild(linkifyNote(item.title, noteLinks));
       }
 
       if (item.note) {
@@ -115,6 +125,7 @@
     /* One publication is a horizontal row: a small fixed-width figure on the
        left, text on the right. Entries without a figure just omit the box. */
     var li = el("li", pub.thumb ? "paper has-thumb" : "paper");
+    li.id = "pub-" + slug(pub.title.split(/[\s:]/)[0]);
     var body = el("div", "paper-body");
 
     var target = null;
@@ -280,7 +291,7 @@
          entry (title, venue, tldr), and following one switches the view to All
          when the cited paper is not in Selected, so it is actually on screen.
          The stored preference is left alone: this is navigation, not a choice. */
-      document.querySelectorAll("a.cite[data-pub]").forEach(function (a) {
+      document.querySelectorAll("a[data-pub]").forEach(function (a) {
         var pub = null;
         pubs.some(function (p) {
           if (p.title.indexOf(a.getAttribute("data-pub")) === 0) { pub = p; return true; }
