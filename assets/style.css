@@ -421,8 +421,8 @@ html { scroll-behavior: smooth; }
 .t-evaluation     { --tag-h: 198; }
 .t-multimodal     { --tag-h: 248; }
 .t-retrieval      { --tag-h: 72;  }
-.t-synthetic-data { --tag-h: 28;  }
-.t-post-training   { --tag-h: 145; }
+.t-social-bias    { --tag-h: 28;  }
+.t-distillation    { --tag-h: 145; }
 .t-tool-use       { --tag-h: 178; }
 .t-pretraining    { --tag-h: 220; }
 .t-tokenizer      { --tag-h: 265; }
