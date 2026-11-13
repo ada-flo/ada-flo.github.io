@@ -350,6 +350,13 @@
         card.addEventListener("focusout", function (event) {
           if (!card.contains(event.relatedTarget) && event.relatedTarget !== a) closeCard();
         });
+        var activationPointer = null;
+        a.addEventListener("pointerdown", function (event) {
+          activationPointer = event.pointerType;
+        });
+        a.addEventListener("keydown", function () {
+          activationPointer = null;
+        });
         a.addEventListener("pointerenter", function (event) {
           if (event.pointerType === "mouse") openCard(a);
         });
@@ -363,10 +370,17 @@
           if (!card.contains(event.relatedTarget)) closeCard();
         });
         a.addEventListener("click", function (event) {
-          // The superscript opens the preview; only its title navigates.
-          // Do not infer touch from click detail or pointer event ordering.
-          event.preventDefault();
-          openCard(a);
+          // Touch opens the preview; a desktop mouse click follows the citation.
+          // Fall back to device capabilities when click has no pointer metadata.
+          var pointer = event.pointerType || activationPointer;
+          var previewOnly = pointer ? pointer !== "mouse" :
+            window.matchMedia("(hover: none), (pointer: coarse)").matches;
+          if (previewOnly) {
+            event.preventDefault();
+            openCard(a);
+          } else {
+            closeCard();
+          }
         });
       }
       a.addEventListener("click", function (event) {
