@@ -65,13 +65,13 @@
     {
       "date": "2025.02",
       "title": "Graduated from Seoul National University",
-      "note": "B.S. in Mathematical Sciences and Computer Science & Engineering"
+      "note": "B.S. in Computer Science & Engineering and Mathematical Sciences"
     }
   ],
   "publications": [
     {
       "title": "EVIDENT: Evaluating Evidence Grounding in GUI Agents",
-      "venue": "EACL2027 Findings",
+      "venue": "EACL 2027 Findings",
       "toappear": true,
       "selected": true,
       "authors": [
@@ -109,7 +109,7 @@
     },
     {
       "title": "TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval",
-      "venue": "EACL2027 Findings",
+      "venue": "EACL 2027 Findings",
       "toappear": true,
       "authors": [
         {
@@ -143,7 +143,7 @@
     },
     {
       "title": "Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text",
-      "venue": "EMNLP2026",
+      "venue": "EMNLP 2026",
       "authors": [
         {
           "name": "Minkyung Cho",
@@ -181,7 +181,7 @@
     },
     {
       "title": "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
-      "venue": "EMNLP2026",
+      "venue": "EMNLP 2026",
       "authors": [
         {
           "name": "ChangSu Choi"
@@ -224,7 +224,7 @@
     },
     {
       "title": "TReX: Tokenizer Regression for Optimal Data Mixture",
-      "venue": "EACL2026",
+      "venue": "EACL 2026",
       "authors": [
         {
           "name": "Inho Won",
