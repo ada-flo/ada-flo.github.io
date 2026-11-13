@@ -45,9 +45,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto 2.5rem;
   padding: 0 2.25rem 3rem;
   background: var(--sheet);
-  border: 1px solid var(--rule);
   border-radius: 0 0 0.8rem 0.8rem;
-  border-top: none;
 }
 
 html { scroll-behavior: smooth; }
@@ -369,7 +367,7 @@ html { scroll-behavior: smooth; }
   object-fit: contain;
   object-position: center;
   display: block;
-  padding: 0.4rem;
+  padding: 6px;               /* whole pixels: the image area is exactly 242x130 */
   transition: transform .3s ease;
 }
 
@@ -527,7 +525,7 @@ html { scroll-behavior: smooth; }
 
 @media print {
   .preview, .portrait, .news, .pub-toggle, .links-row { display: none; }
-  .page { max-width: none; padding: 0; border: none; }
+  .page { max-width: none; padding: 0; }
   body { background: #fff; }
   a { text-decoration: none; }
 }
