@@ -327,7 +327,6 @@
         card.appendChild(el("span", "cite-card-venue",
           pub.venue + (pub.toappear ? " · To appear" : "")));
         if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
-        card.appendChild(el("span", "cite-card-hint", "Tap the citation again to view the paper."));
         // Reading or scrolling the preview must not activate its parent link.
         card.addEventListener("click", function (event) {
           event.preventDefault();

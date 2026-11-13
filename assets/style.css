@@ -230,9 +230,6 @@ html { scroll-behavior: smooth; }
   overscroll-behavior: contain;
 }
 
-.cite-card-hint { display: none; margin-top: 0.4rem; font-size: 0.75rem; }
-@media (hover: none) { .cite-card-hint { display: block; } }
-
 .cite-card-title {
   display: block;
   font-family: var(--serif);
