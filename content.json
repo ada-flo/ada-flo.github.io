@@ -1,6 +1,11 @@
 {
-  "lastUpdated": "August 2026",
+  "lastUpdated": "November 2026",
   "news": [
+    {
+      "date": "2026.11",
+      "title": "Two papers accepted to Findings of EACL 2027",
+      "note": "EVIDENT and TraceCIR"
+    },
     {
       "date": "2026.08",
       "title": "Two papers accepted to EMNLP 2026",
@@ -40,9 +45,80 @@
   ],
   "publications": [
     {
-      "title": "Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text",
-      "venue": "EMNLP 2026",
+      "title": "EVIDENT: Evaluating Evidence Grounding in GUI Agents",
+      "venue": "EACL2027 Findings",
       "toappear": true,
+      "selected": true,
+      "authors": [
+        {
+          "name": "Yerin Nam",
+          "cofirst": true
+        },
+        {
+          "name": "Minkyung Cho",
+          "me": true,
+          "cofirst": true
+        },
+        {
+          "name": "MinKyu Kim"
+        },
+        {
+          "name": "SeungWoo Song"
+        },
+        {
+          "name": "HanGyeol Yoo"
+        },
+        {
+          "name": "Jihyo Kim"
+        },
+        {
+          "name": "KyungTae Lim"
+        }
+      ],
+      "tags": [
+        "agents",
+        "evaluation"
+      ],
+      "tldr": "Tests whether GUI agents ground their answers in evidence actually observed during navigation, separating surface task success from verified success.",
+      "thumb": "assets/img/evident.jpg"
+    },
+    {
+      "title": "TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval",
+      "venue": "EACL2027 Findings",
+      "toappear": true,
+      "authors": [
+        {
+          "name": "Chan Hur",
+          "cofirst": true
+        },
+        {
+          "name": "Minkyung Cho",
+          "me": true,
+          "cofirst": true
+        },
+        {
+          "name": "Jun Seo Kim"
+        },
+        {
+          "name": "Won Jun Oh"
+        },
+        {
+          "name": "Hyung Wook Noh"
+        },
+        {
+          "name": "KyungTae Lim"
+        }
+      ],
+      "tags": [
+        "multimodal",
+        "retrieval"
+      ],
+      "tldr": "Scores multi-turn image retrieval at every turn, so each user update becomes an observable state transition instead of only the final target counting.",
+      "thumb": "assets/img/tracecir.jpg"
+    },
+    {
+      "title": "Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text",
+      "venue": "EMNLP2026",
       "authors": [
         {
           "name": "Minkyung Cho",
@@ -74,13 +150,13 @@
       ],
       "tldr": "Benign-looking synthetic data can carry targeted social biases into aligned models, and safety filters do not catch it.",
       "links": {
-        "arxiv": "https://arxiv.org/abs/2608.30619"
-      }
+        "anthology": "https://aclanthology.org/2026.emnlp-main.1230/"
+      },
+      "selected": true
     },
     {
       "title": "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
-      "venue": "EMNLP 2026",
-      "toappear": true,
+      "venue": "EMNLP2026",
       "authors": [
         {
           "name": "ChangSu Choi"
@@ -112,7 +188,7 @@
         }
       ],
       "links": {
-        "arxiv": "https://arxiv.org/abs/2510.18383"
+        "anthology": "https://aclanthology.org/2026.emnlp-main.1286/"
       },
       "thumb": "assets/img/mentor.jpg",
       "tags": [
@@ -123,13 +199,15 @@
     },
     {
       "title": "TReX: Tokenizer Regression for Optimal Data Mixture",
-      "venue": "EACL 2026",
+      "venue": "EACL2026",
       "authors": [
         {
-          "name": "Inho Won"
+          "name": "Inho Won",
+          "cofirst": true
         },
         {
-          "name": "HanGyeol Yoo"
+          "name": "HanGyeol Yoo",
+          "cofirst": true
         },
         {
           "name": "Minkyung Cho",
@@ -157,7 +235,7 @@
     },
     {
       "title": "KORMo: Korean Open Reasoning Model for Everyone",
-      "venue": "arXiv preprint, 2025",
+      "venue": "arXiv 2025",
       "authors": [
         {
           "name": "Minjun Kim"
@@ -244,11 +322,12 @@
           "left": "2.81%",
           "width": "94.38%"
         }
-      ]
+      ],
+      "selected": true
     },
     {
       "title": "Linq-Embed-Mistral Technical Report",
-      "venue": "arXiv preprint, 2024",
+      "venue": "arXiv 2024",
       "authors": [
         {
           "name": "Chanyeol Choi"
