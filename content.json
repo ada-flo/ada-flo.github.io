@@ -139,7 +139,7 @@
         "retrieval"
       ],
       "tldr": "Scores multi-turn image retrieval at every turn, so each user update becomes an observable state transition instead of only the final target counting.",
-      "thumb": "assets/img/tracecir.jpg"
+      "thumb": "assets/img/tracecir.png"
     },
     {
       "title": "Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text",
