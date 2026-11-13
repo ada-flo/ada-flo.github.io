@@ -4,7 +4,7 @@
    ============================================================ */
 
 :root {
-  --bg:#ffffff; --fg:#27272a; --muted:#52525b; --faint:#71717a;
+  --bg:#f0f3f7; --sheet:#ffffff; --fg:#27272a; --muted:#52525b; --faint:#71717a;
   --rule:#e4e4e7; --thumb-bg:#fafafa; --accent:#b45309;
   --card:#ffffff; --tag-l:32%; --tag-bg-l:96%; --tag-br-l:87%;
   --sans:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -42,8 +42,12 @@ a { color: inherit; text-decoration: none; }
 .page {
   position: relative;
   max-width: 58rem;          /* 928px, wider than the original 800px */
-  margin: 0 auto;
-  padding: 0 1.5rem 4rem;
+  margin: 0 auto 2.5rem;
+  padding: 0 2.25rem 3rem;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 0 0 0.8rem 0.8rem;
+  border-top: none;
 }
 
 html { scroll-behavior: smooth; }
@@ -71,7 +75,7 @@ html { scroll-behavior: smooth; }
   gap: 0.5rem 1.5rem;
   padding: 1.1rem 0;
   margin-bottom: 2.75rem;
-  background: var(--bg);
+  background: var(--sheet);
   border-bottom: 1px solid var(--rule);
   font-size: 0.9rem;
 }
@@ -101,7 +105,7 @@ html { scroll-behavior: smooth; }
 
 .portrait {
   flex-shrink: 0;
-  width: 9.5rem;
+  width: 7.75rem;
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 999px;
@@ -111,7 +115,7 @@ html { scroll-behavior: smooth; }
 .name {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 2.125rem;
+  font-size: 1.8rem;
   line-height: 1.15;
   letter-spacing: -0.015em;
 }
@@ -170,6 +174,7 @@ html { scroll-behavior: smooth; }
   padding-top: 2.25rem;
   border-top: 1px solid var(--rule);
   clear: both;
+  font-size: 0.925rem;
 }
 
 .about p + p { margin-top: 1rem; }
@@ -184,57 +189,70 @@ html { scroll-behavior: smooth; }
 
 .about strong { font-weight: 600; }
 
-/* ---- disclosure ("a bit more on that") -------------------- */
-
-.more { margin-top: 1.1rem; }
-
-.more > summary {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  cursor: pointer;
-  list-style: none;
-  font-size: 0.9rem;
+/* inline paper citations in the bio, after a well-known homepage's style */
+.about .cite {
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;              /* superscript must not stretch the line */
   color: var(--muted);
-  text-decoration: underline;
-  text-decoration-color: var(--rule);
-  text-underline-offset: 3px;
-  transition: color .12s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.about .cite:hover { color: var(--accent); }
+
+/* hover card for a cited paper: title, venue, one-line summary */
+.about .cite { position: relative; }
+
+.cite-card {
+  position: absolute;
+  bottom: calc(100% + 0.55rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(3px);
+  width: 21rem;
+  max-width: 76vw;
+  padding: 0.7rem 0.85rem;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 0.55rem;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.13);
+  text-align: left;
+  font-style: normal;
+  white-space: normal;
+  line-height: 1.45;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .12s ease, transform .12s ease;
+  pointer-events: none;
+  z-index: 10;
 }
 
-/* the default disclosure triangle, in both engines */
-.more > summary::-webkit-details-marker { display: none; }
-.more > summary::marker { content: ""; }
-
-.more > summary:hover { color: var(--accent); text-decoration-color: var(--accent); }
-
-.more > summary::after {
-  content: "\25B8";
-  display: inline-block;
-  font-size: 0.75em;
-  color: var(--faint);
-  transition: transform .15s ease;
+.about .cite:hover .cite-card, .about .cite:focus-visible .cite-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
-.more[open] > summary::after { transform: rotate(90deg); }
-
-.more-body {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-  overflow: hidden;
-}
-
-.more-body p + p { margin-top: 0.75rem; }
-
-.more-body a {
+.cite-card-title {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 0.85rem;
   color: var(--fg);
-  text-decoration: underline;
-  text-decoration-color: var(--rule);
-  text-underline-offset: 3px;
+  margin-bottom: 0.2rem;
 }
 
-.more-body a:hover { text-decoration-color: var(--accent); }
+.cite-card-venue {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--fg);
+  margin-bottom: 0.3rem;
+}
+
+.cite-card-tldr {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
 
 .other-list > li {
   position: relative;
@@ -265,8 +283,8 @@ html { scroll-behavior: smooth; }
 .section-head {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 1.25rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.15rem;
+  margin-bottom: 1.1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--rule);
 }
@@ -275,27 +293,56 @@ html { scroll-behavior: smooth; }
 
 /* ---- publications ---------------------------------------- */
 
+.pub-toggle {
+  float: right;
+  display: inline-flex;
+  gap: 0.25rem;
+  font-family: var(--sans);
+  font-weight: 400;
+}
+
+.pub-mode {
+  font: inherit;
+  font-size: 0.8125rem;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .12s ease, border-color .12s ease;
+}
+
+.pub-mode:hover { color: var(--accent); }
+
+.pub-mode.is-active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+
 /* Two-up card grid. Each card is a fixed shape so the row reads as a set. */
 .paper-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: stretch;
-}
-
-@media (min-width: 720px) {
-  .paper-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-.paper {
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* One publication is a row: small figure left, text right. Borderless, the
+   vertical rhythm separates entries, which keeps a long list calm. */
+.paper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.1rem;
   min-width: 0;
-  height: 100%;
-  padding: 1.15rem;
-  border: 1px solid var(--rule);
-  border-radius: 0.9rem;
-  background: var(--card);
+}
+
+.paper-body { flex: 1; min-width: 0; }
+
+@media (max-width: 540px) {
+  .paper { flex-direction: column; gap: 0.7rem; }
+  .paper .preview { width: 100%; max-width: 16rem; }
 }
 
 /* THE fix for figures of different proportions: a fixed 16:9 window that the
@@ -303,9 +350,11 @@ html { scroll-behavior: smooth; }
 .preview {
   position: relative;
   display: block;
+  flex-shrink: 0;
+  width: 16rem;
   aspect-ratio: 16 / 9;
-  margin-bottom: 0.85rem;
-  border-radius: 0.6rem;
+  margin-top: 0.2rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   background: var(--thumb-bg);
   border: 1px solid var(--rule);
@@ -342,15 +391,15 @@ html { scroll-behavior: smooth; }
 .title {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 1.02rem;
+  font-size: 0.97rem;
   line-height: 1.35;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .title a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
 .title a:hover { text-decoration-color: var(--accent); }
 
-.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.3rem; }
 
 /* One hue per category, expressed as a single number. */
 .tag {
@@ -368,6 +417,10 @@ html { scroll-behavior: smooth; }
 }
 
 .t-safety         { --tag-h: 2;   }
+.t-agents         { --tag-h: 95;  }
+.t-evaluation     { --tag-h: 198; }
+.t-multimodal     { --tag-h: 248; }
+.t-retrieval      { --tag-h: 72;  }
 .t-synthetic-data { --tag-h: 28;  }
 .t-post-training   { --tag-h: 145; }
 .t-tool-use       { --tag-h: 178; }
@@ -378,34 +431,33 @@ html { scroll-behavior: smooth; }
 .t-embedding      { --tag-h: 42;  }
 
 .meta {
-  font-size: 0.8rem;
-  color: var(--faint);
-  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--fg);
+  margin-bottom: 0.2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0 0.5rem;
 }
 
+
 .meta > span + span::before { content: "\00b7"; margin-right: 0.5rem; color: var(--rule); }
 .meta .award, .meta .toappear { color: var(--accent); font-weight: 600; }
 
-.authors { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+.authors { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.25rem; line-height: 1.45; }
 .authors .me { color: var(--fg); font-weight: 600; }
 .authors a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
 .authors a:hover { text-decoration-color: var(--accent); }
 
-.tldr { font-size: 0.875rem; margin-bottom: 0.6rem; }
-.tldr b { font-weight: 600; }
 
 /* pinned to the bottom so link rows line up across a row of cards */
 .links-row {
-  margin-top: auto;
-  padding-top: 0.3rem;
-  font-size: 0.85rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 0.6rem;
+  padding-top: 0.1rem;
+  font-size: 0.8125rem;
+  color: var(--faint);
 }
+
+.links-row a { margin: 0 0.15rem; }
+.links-row-empty { visibility: hidden; }
 
 .links-row a {
   color: var(--muted);
@@ -415,13 +467,8 @@ html { scroll-behavior: smooth; }
 }
 
 .links-row a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-.links-row a + a::before { content: "\00b7"; color: var(--rule); margin-right: 0.6rem; }
+.links-row a + a::before { content: "\00b7\00a0"; color: var(--faint); margin-right: 0.15rem; text-decoration: none; display: inline-block; }
 
-.cofirst-note {
-  margin-top: 1.75rem;
-  font-size: 0.8125rem;
-  color: var(--faint);
-}
 
 /* ---- updates --------------------------------------------- */
 
@@ -479,9 +526,8 @@ html { scroll-behavior: smooth; }
 /* ---- print ----------------------------------------------- */
 
 @media print {
-  .preview, .portrait, .news { display: none; }
-  .paper { border: none; padding: 0; }
-  .paper-list { grid-template-columns: 1fr; }
-  .page { max-width: none; padding: 0; }
+  .preview, .portrait, .news, .pub-toggle, .links-row { display: none; }
+  .page { max-width: none; padding: 0; border: none; }
+  body { background: #fff; }
   a { text-decoration: none; }
 }

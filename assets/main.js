@@ -9,7 +9,7 @@
   /* Name each link for what it actually is. A paper link says "arXiv" or
      "ACL Anthology", never a generic "Website". */
   var LINK_LABELS = {
-    anthology:   "ACL Anthology",
+    anthology:   "Anthology",
     arxiv:       "arXiv",
     openreview:  "OpenReview",
     pdf:         "PDF",
@@ -112,7 +112,10 @@
   function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
 
   function renderPaper(pub) {
+    /* One publication is a horizontal row: a small fixed-width figure on the
+       left, text on the right. Entries without a figure just omit the box. */
     var li = el("li", pub.thumb ? "paper has-thumb" : "paper");
+    var body = el("div", "paper-body");
 
     var target = null;
     if (pub.links) {
@@ -167,7 +170,7 @@
     } else {
       title.textContent = pub.title;
     }
-    li.appendChild(title);
+    body.appendChild(title);
 
     if (pub.tags && pub.tags.length) {
       var tags = el("div", "tags");
@@ -175,19 +178,8 @@
       pub.tags.forEach(function (t) {
         tags.appendChild(el("span", "tag t-" + slug(t), t));
       });
-      li.appendChild(tags);
+      body.appendChild(tags);
     }
-
-    /* venue line: "EMNLP 2026 - Workshop on X - To appear - Best Paper" */
-    var meta = el("div", "meta");
-    if (pub.venue) meta.appendChild(el("span", null, pub.venue));
-    if (pub.workshop) {
-      meta.appendChild(el("span", null,
-        typeof pub.workshop === "string" ? pub.workshop : "Workshop"));
-    }
-    if (pub.toappear) meta.appendChild(el("span", "toappear", "To appear"));
-    if (pub.award) meta.appendChild(el("span", "award", pub.award));
-    if (meta.childNodes.length) li.appendChild(meta);
 
     if (pub.authors && pub.authors.length) {
       var authors = el("p", "authors");
@@ -204,27 +196,44 @@
           authors.appendChild(el("span", author.me ? "me" : null, name));
         }
       });
-      li.appendChild(authors);
+      body.appendChild(authors);
     }
 
-    if (pub.tldr) {
-      var tldr = el("p", "tldr");
-      tldr.appendChild(el("b", null, "TL;DR:"));
-      tldr.appendChild(document.createTextNode(" " + pub.tldr));
-      li.appendChild(tldr);
+    /* venue line: "EMNLP 2026 - Workshop on X - To appear - Best Paper" */
+    var meta = el("div", "meta");
+    if (pub.venue) meta.appendChild(el("span", null, pub.venue));
+    if (pub.workshop) {
+      meta.appendChild(el("span", null,
+        typeof pub.workshop === "string" ? pub.workshop : "Workshop"));
     }
+    if (pub.toappear) meta.appendChild(el("span", "toappear", "To appear"));
+    if (pub.award) meta.appendChild(el("span", "award", pub.award));
+    if (meta.childNodes.length) body.appendChild(meta);
 
+    /* tldr stays in content.json but is not rendered in the row layout;
+       the title plus venue line carries enough, and rows stay compact. */
+    var actions = el("p", "links-row");
     if (pub.links) {
-      var actions = el("p", "links-row");
       LINK_ORDER.forEach(function (key) {
         if (pub.links[key]) {
           actions.appendChild(
             externalLink(pub.links[key], LINK_LABELS[key] || key, null));
         }
       });
-      if (actions.childNodes.length) li.appendChild(actions);
     }
+    if (actions.childNodes.length) {
+      /* [arXiv . Code] framing, after a well-known homepage's style */
+      actions.insertBefore(document.createTextNode("["), actions.firstChild);
+      actions.appendChild(document.createTextNode("]"));
+    } else {
+      /* Linkless entries keep the row as an invisible spacer so every entry
+         ends at the same rhythm and the gaps between papers stay even. */
+      actions.className = "links-row links-row-empty";
+      actions.appendChild(document.createTextNode("\u00a0"));
+    }
+    body.appendChild(actions);
 
+    li.appendChild(body);
     return li;
   }
 
@@ -233,16 +242,70 @@
     var list = document.getElementById("paper-list");
     if (!pubs || !pubs.length) return;
 
-    var anyCofirst = false;
-    pubs.forEach(function (pub) {
-      list.appendChild(renderPaper(pub));
-      if (pub.authors && pub.authors.some(function (a) { return a.cofirst; })) {
-        anyCofirst = true;
+    function fill(subset) {
+      list.textContent = "";
+      subset.forEach(function (pub) {
+        list.appendChild(renderPaper(pub));
+      });
+    }
+
+    /* Selected / All. The toggle only exists if something is marked selected;
+       otherwise the full list renders and there is nothing to switch. */
+    var selected = pubs.filter(function (p) { return p.selected; });
+    if (selected.length && selected.length < pubs.length) {
+      var toggle = document.getElementById("pub-toggle");
+      var btnSel = el("button", "pub-mode is-active", "Selected");
+      var btnAll = el("button", "pub-mode", "All");
+      btnSel.type = btnAll.type = "button";
+      function show(mode) {
+        btnSel.className = "pub-mode" + (mode === "selected" ? " is-active" : "");
+        btnAll.className = "pub-mode" + (mode === "all" ? " is-active" : "");
+        fill(mode === "selected" ? selected : pubs);
       }
-    });
+      /* the choice survives a reload */
+      function pick(mode) {
+        show(mode);
+        try { localStorage.setItem("pubmode", mode); } catch (e) {}
+      }
+      btnSel.addEventListener("click", function () { pick("selected"); });
+      btnAll.addEventListener("click", function () { pick("all"); });
+      toggle.appendChild(btnSel);
+      toggle.appendChild(btnAll);
+      toggle.hidden = false;
+      var saved = null;
+      try { saved = localStorage.getItem("pubmode"); } catch (e) {}
+      show(saved === "all" ? "all" : "selected");
+
+      /* Bio citations. Each cite gets a hover card built from the paper's own
+         entry (title, venue, tldr), and following one switches the view to All
+         when the cited paper is not in Selected, so it is actually on screen.
+         The stored preference is left alone: this is navigation, not a choice. */
+      document.querySelectorAll("a.cite[data-pub]").forEach(function (a) {
+        var pub = null;
+        pubs.some(function (p) {
+          if (p.title.indexOf(a.getAttribute("data-pub")) === 0) { pub = p; return true; }
+          return false;
+        });
+        if (pub) {
+          var card = el("span", "cite-card");
+          card.appendChild(el("span", "cite-card-title", pub.title));
+          var venue = pub.venue + (pub.toappear ? " \u00b7 To appear" : "");
+          card.appendChild(el("span", "cite-card-venue", venue));
+          if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
+          a.appendChild(card);
+        }
+        a.addEventListener("click", function () {
+          var inSelected = selected.some(function (p) {
+            return p.title.indexOf(a.getAttribute("data-pub")) === 0;
+          });
+          if (!inSelected) show("all");
+        });
+      });
+    } else {
+      fill(pubs);
+    }
 
     section.hidden = false;
-    if (anyCofirst) document.getElementById("cofirst-note").hidden = false;
   }
 
   /* ---- boot ---------------------------------------------- */
