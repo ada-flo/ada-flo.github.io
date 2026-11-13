@@ -133,6 +133,7 @@ html { scroll-behavior: smooth; }
 }
 
 .role a:hover { text-decoration-color: var(--accent); }
+.nowrap { white-space: nowrap; }
 
 /* Spacing separates profile links cleanly, including across wrapped rows. */
 .links {
@@ -156,9 +157,13 @@ html { scroll-behavior: smooth; }
 .links a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 @media (max-width: 480px) {
-  .topnav { margin-bottom: 1.5rem; }
-  .masthead { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .portrait { width: 6.5rem; }
+  /* the name already heads the page right below; the nav keeps only its links */
+  .topnav { margin-bottom: 1.25rem; padding: 0.8rem 0; }
+  .topnav-name { display: none; }
+  .masthead { align-items: center; gap: 1rem; margin-bottom: 2rem; }
+  .portrait { width: 5rem; }
+  .name { font-size: 1.55rem; }
+  .role { margin-top: 0.4rem; }
 }
 
 /* ---- prose ----------------------------------------------- */
@@ -436,7 +441,8 @@ html { scroll-behavior: smooth; }
 }
 
 
-.meta > span + span::before { content: "\00b7"; margin-right: 0.5rem; color: var(--rule); }
+/* separators trail the item before them, so a wrapped line never starts with one */
+.meta > span:not(:last-child)::after { content: "\00b7"; margin-left: 0.5rem; color: var(--rule); }
 .meta .award, .meta .toappear { color: var(--accent); font-weight: 600; }
 
 .authors { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.25rem; line-height: 1.45; }
@@ -463,7 +469,7 @@ html { scroll-behavior: smooth; }
 }
 
 .links-row a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-.links-row a + a::before { content: "\00b7\00a0"; color: var(--faint); margin-right: 0.15rem; text-decoration: none; display: inline-block; }
+.links-row a:not(:last-of-type)::after { content: "\00a0\00b7"; color: var(--faint); margin-left: 0.15rem; text-decoration: none; display: inline-block; }
 
 
 /* ---- updates --------------------------------------------- */
