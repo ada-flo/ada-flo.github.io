@@ -340,22 +340,29 @@
         card.appendChild(el("span", "cite-card-venue",
           pub.venue + (pub.toappear ? " · To appear" : "")));
         if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
-        // Keep the preview beside the citation: links cannot nest inside links.
-        a.insertAdjacentElement("afterend", card);
+        // Separate controls give mobile a button with no navigation default,
+        // while desktop retains a real link. CSS selects the visible control.
+        var button = el("button", "cite cite-mobile", a.textContent);
+        button.type = "button";
+        button.setAttribute("aria-controls", card.id);
+        button.setAttribute("aria-expanded", "false");
+        button.setAttribute("aria-label", "Preview publication: " + pub.title);
+        a.classList.add("cite-desktop");
+        a.insertAdjacentElement("afterend", button);
+        button.insertAdjacentElement("afterend", card);
         citationCards.set(a, card);
+        citationCards.set(button, card);
+        button.addEventListener("click", function () { openCard(button); });
+        button.addEventListener("blur", function (event) {
+          if (!card.contains(event.relatedTarget)) closeCard();
+        });
         card.addEventListener("pointerenter", function () { clearTimeout(closeTimer); });
         card.addEventListener("pointerleave", function (event) {
           if (event.pointerType === "mouse") closeTimer = setTimeout(closeCard, 150);
         });
         card.addEventListener("focusout", function (event) {
-          if (!card.contains(event.relatedTarget) && event.relatedTarget !== a) closeCard();
-        });
-        var activationPointer = null;
-        a.addEventListener("pointerdown", function (event) {
-          activationPointer = event.pointerType;
-        });
-        a.addEventListener("keydown", function () {
-          activationPointer = null;
+          if (!card.contains(event.relatedTarget) && event.relatedTarget !== a &&
+              event.relatedTarget !== button) closeCard();
         });
         a.addEventListener("pointerenter", function (event) {
           if (event.pointerType === "mouse") openCard(a);
@@ -369,20 +376,7 @@
         a.addEventListener("blur", function (event) {
           if (!card.contains(event.relatedTarget)) closeCard();
         });
-        a.addEventListener("click", function (event) {
-          // Mobile browsers/emulators may report taps as mouse clicks. Give
-          // the mobile layout and touch capabilities priority over that metadata.
-          var pointer = event.pointerType || activationPointer;
-          var previewOnly = window.matchMedia(
-            "(max-width: 600px), (hover: none), (pointer: coarse)"
-          ).matches || (pointer && pointer !== "mouse");
-          if (previewOnly) {
-            event.preventDefault();
-            openCard(a);
-          } else {
-            closeCard();
-          }
-        });
+        a.addEventListener("click", closeCard);
       }
       a.addEventListener("click", function (event) {
         if (!event.defaultPrevented && !document.getElementById(a.hash.slice(1))) showAll();
