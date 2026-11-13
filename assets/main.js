@@ -287,14 +287,18 @@
 
     // Citations work even when there is no Selected/All toggle.
     var activeCite = null;
+    var citationCards = new Map();
+    var closeTimer;
     function closeCard() {
+      clearTimeout(closeTimer);
       if (!activeCite) return;
-      activeCite.querySelector(".cite-card").classList.remove("is-open");
+      citationCards.get(activeCite).classList.remove("is-open");
+      activeCite.setAttribute("aria-expanded", "false");
       activeCite = null;
     }
     function openCard(a) {
       closeCard();
-      var card = a.querySelector(".cite-card");
+      var card = citationCards.get(a);
       var rect = a.getBoundingClientRect();
       var width = document.documentElement.clientWidth;
       var height = window.innerHeight;
@@ -309,6 +313,7 @@
       card.style.left = left + "px";
       card.style.top = top + "px";
       card.classList.add("is-open");
+      a.setAttribute("aria-expanded", "true");
       activeCite = a;
     }
     document.querySelectorAll("a[data-pub]").forEach(function (a, index) {
@@ -320,19 +325,31 @@
       if (a.classList.contains("cite")) {
         var card = el("span", "cite-card");
         card.id = "citation-preview-" + index;
-        card.setAttribute("role", "tooltip");
-        a.setAttribute("aria-describedby", card.id);
+        card.setAttribute("role", "region");
+        card.setAttribute("aria-label", "Publication preview");
+        a.setAttribute("aria-controls", card.id);
+        a.setAttribute("aria-expanded", "false");
         a.setAttribute("aria-label", "View publication: " + pub.title);
-        card.appendChild(el("span", "cite-card-title", pub.title));
+        var titleLink = el("a", "cite-card-title", pub.title);
+        titleLink.href = a.href;
+        titleLink.addEventListener("click", function () {
+          if (!document.getElementById(a.hash.slice(1))) showAll();
+          closeCard();
+        });
+        card.appendChild(titleLink);
         card.appendChild(el("span", "cite-card-venue",
           pub.venue + (pub.toappear ? " · To appear" : "")));
         if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
-        // Reading or scrolling the preview must not activate its parent link.
-        card.addEventListener("click", function (event) {
-          event.preventDefault();
-          event.stopPropagation();
+        // Keep the preview beside the citation: links cannot nest inside links.
+        a.insertAdjacentElement("afterend", card);
+        citationCards.set(a, card);
+        card.addEventListener("pointerenter", function () { clearTimeout(closeTimer); });
+        card.addEventListener("pointerleave", function (event) {
+          if (event.pointerType === "mouse") closeTimer = setTimeout(closeCard, 150);
         });
-        a.appendChild(card);
+        card.addEventListener("focusout", function (event) {
+          if (!card.contains(event.relatedTarget) && event.relatedTarget !== a) closeCard();
+        });
         var touch = false;
         a.addEventListener("pointerdown", function (event) {
           touch = event.pointerType !== "mouse";
@@ -341,12 +358,14 @@
           if (event.pointerType === "mouse") openCard(a);
         });
         a.addEventListener("pointerleave", function (event) {
-          if (event.pointerType === "mouse") closeCard();
+          if (event.pointerType === "mouse") closeTimer = setTimeout(closeCard, 150);
         });
         a.addEventListener("focus", function () {
           if (!touch) openCard(a);
         });
-        a.addEventListener("blur", closeCard);
+        a.addEventListener("blur", function (event) {
+          if (!card.contains(event.relatedTarget)) closeCard();
+        });
         a.addEventListener("click", function (event) {
           if (touch && event.detail !== 0 && activeCite !== a) {
             event.preventDefault();
@@ -361,7 +380,8 @@
       });
     });
     document.addEventListener("pointerdown", function (event) {
-      if (activeCite && !activeCite.contains(event.target)) closeCard();
+      if (activeCite && !activeCite.contains(event.target) &&
+          !citationCards.get(activeCite).contains(event.target)) closeCard();
     });
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") closeCard();

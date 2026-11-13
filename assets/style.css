@@ -231,6 +231,8 @@ html { scroll-behavior: smooth; }
 }
 
 .cite-card-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
   display: block;
   font-family: var(--serif);
   font-weight: 600;
