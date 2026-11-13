@@ -151,7 +151,7 @@
         mapped.appendChild(img);
         if (target) {
           var base = externalLink(target, null, "zone zone-base");
-          base.textContent = "";
+          base.setAttribute("aria-label", pub.title);
           mapped.appendChild(base);
         }
         pub.thumbmap.forEach(function (z) {
@@ -165,7 +165,7 @@
         li.appendChild(mapped);
       } else if (target) {
         var frame = externalLink(target, null, "preview");
-        frame.textContent = "";
+        frame.setAttribute("aria-label", pub.title);
         frame.appendChild(img);
         li.appendChild(frame);
       } else {
@@ -260,61 +260,110 @@
       });
     }
 
-    /* Selected / All. The toggle only exists if something is marked selected;
-       otherwise the full list renders and there is nothing to switch. */
     var selected = pubs.filter(function (p) { return p.selected; });
+    var showAll = function () { fill(pubs); };
     if (selected.length && selected.length < pubs.length) {
       var toggle = document.getElementById("pub-toggle");
-      var btnSel = el("button", "pub-mode is-active", "Selected");
+      var btnSel = el("button", "pub-mode", "Selected");
       var btnAll = el("button", "pub-mode", "All");
       btnSel.type = btnAll.type = "button";
       function show(mode) {
         btnSel.className = "pub-mode" + (mode === "selected" ? " is-active" : "");
         btnAll.className = "pub-mode" + (mode === "all" ? " is-active" : "");
+        btnSel.setAttribute("aria-pressed", String(mode === "selected"));
+        btnAll.setAttribute("aria-pressed", String(mode === "all"));
         fill(mode === "selected" ? selected : pubs);
       }
-      /* the choice survives a reload */
-      function pick(mode) {
-        show(mode);
-        try { localStorage.setItem("pubmode", mode); } catch (e) {}
-      }
-      btnSel.addEventListener("click", function () { pick("selected"); });
-      btnAll.addEventListener("click", function () { pick("all"); });
+      btnSel.addEventListener("click", function () { show("selected"); });
+      btnAll.addEventListener("click", function () { show("all"); });
       toggle.appendChild(btnSel);
       toggle.appendChild(btnAll);
       toggle.hidden = false;
-      var saved = null;
-      try { saved = localStorage.getItem("pubmode"); } catch (e) {}
-      show(saved === "all" ? "all" : "selected");
-
-      /* Bio citations. Each cite gets a hover card built from the paper's own
-         entry (title, venue, tldr), and following one switches the view to All
-         when the cited paper is not in Selected, so it is actually on screen.
-         The stored preference is left alone: this is navigation, not a choice. */
-      document.querySelectorAll("a[data-pub]").forEach(function (a) {
-        var pub = null;
-        pubs.some(function (p) {
-          if (p.title.indexOf(a.getAttribute("data-pub")) === 0) { pub = p; return true; }
-          return false;
-        });
-        if (pub && a.classList.contains("cite")) {
-          var card = el("span", "cite-card");
-          card.appendChild(el("span", "cite-card-title", pub.title));
-          var venue = pub.venue + (pub.toappear ? " \u00b7 To appear" : "");
-          card.appendChild(el("span", "cite-card-venue", venue));
-          if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
-          a.appendChild(card);
-        }
-        a.addEventListener("click", function () {
-          var inSelected = selected.some(function (p) {
-            return p.title.indexOf(a.getAttribute("data-pub")) === 0;
-          });
-          if (!inSelected) show("all");
-        });
-      });
+      showAll = function () { show("all"); };
+      show("selected");
     } else {
       fill(pubs);
     }
+
+    // Citations work even when there is no Selected/All toggle.
+    var activeCite = null;
+    function closeCard() {
+      if (!activeCite) return;
+      activeCite.querySelector(".cite-card").classList.remove("is-open");
+      activeCite = null;
+    }
+    function openCard(a) {
+      closeCard();
+      var card = a.querySelector(".cite-card");
+      var rect = a.getBoundingClientRect();
+      var width = document.documentElement.clientWidth;
+      var height = window.innerHeight;
+      card.style.left = "12px";
+      card.style.top = "12px";
+      var box = card.getBoundingClientRect();
+      var left = Math.max(12, Math.min(rect.left + rect.width / 2 - box.width / 2,
+        width - box.width - 12));
+      var top = rect.top - box.height - 8;
+      if (top < 12) top = rect.bottom + 8;
+      top = Math.max(12, Math.min(top, height - box.height - 12));
+      card.style.left = left + "px";
+      card.style.top = top + "px";
+      card.classList.add("is-open");
+      activeCite = a;
+    }
+    document.querySelectorAll("a[data-pub]").forEach(function (a, index) {
+      var pub = pubs.find(function (p) {
+        return p.title.indexOf(a.getAttribute("data-pub")) === 0;
+      });
+      if (!pub) return;
+      a.href = "#pub-" + slug(pub.title.split(/[\s:]/)[0]);
+      if (a.classList.contains("cite")) {
+        var card = el("span", "cite-card");
+        card.id = "citation-preview-" + index;
+        card.setAttribute("role", "tooltip");
+        a.setAttribute("aria-describedby", card.id);
+        a.setAttribute("aria-label", "View publication: " + pub.title);
+        card.appendChild(el("span", "cite-card-title", pub.title));
+        card.appendChild(el("span", "cite-card-venue",
+          pub.venue + (pub.toappear ? " · To appear" : "")));
+        if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
+        card.appendChild(el("span", "cite-card-hint", "Tap the citation again to view the paper."));
+        a.appendChild(card);
+        var touch = false;
+        a.addEventListener("pointerdown", function (event) {
+          touch = event.pointerType !== "mouse";
+        });
+        a.addEventListener("pointerenter", function (event) {
+          if (event.pointerType === "mouse") openCard(a);
+        });
+        a.addEventListener("pointerleave", function (event) {
+          if (event.pointerType === "mouse") closeCard();
+        });
+        a.addEventListener("focus", function () {
+          if (!touch) openCard(a);
+        });
+        a.addEventListener("blur", closeCard);
+        a.addEventListener("click", function (event) {
+          if (touch && event.detail !== 0 && activeCite !== a) {
+            event.preventDefault();
+            openCard(a);
+          } else {
+            closeCard();
+          }
+        });
+      }
+      a.addEventListener("click", function (event) {
+        if (!event.defaultPrevented && !document.getElementById(a.hash.slice(1))) showAll();
+      });
+    });
+    document.addEventListener("pointerdown", function (event) {
+      if (activeCite && !activeCite.contains(event.target)) closeCard();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeCard();
+    });
+    window.addEventListener("scroll", closeCard, { passive: true });
+    window.addEventListener("resize", closeCard);
 
     section.hidden = false;
   }
