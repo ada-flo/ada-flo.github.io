@@ -12,6 +12,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html { -webkit-text-size-adjust: 100%; }
 
@@ -220,6 +221,8 @@ html { scroll-behavior: smooth; }
 .cite-card.is-open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  overscroll-behavior: contain;
 }
 
 .cite-card-hint { display: none; margin-top: 0.4rem; font-size: 0.75rem; }

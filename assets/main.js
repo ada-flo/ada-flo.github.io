@@ -328,6 +328,11 @@
           pub.venue + (pub.toappear ? " · To appear" : "")));
         if (pub.tldr) card.appendChild(el("span", "cite-card-tldr", pub.tldr));
         card.appendChild(el("span", "cite-card-hint", "Tap the citation again to view the paper."));
+        // Reading or scrolling the preview must not activate its parent link.
+        card.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        });
         a.appendChild(card);
         var touch = false;
         a.addEventListener("pointerdown", function (event) {
@@ -366,6 +371,21 @@
     window.addEventListener("resize", closeCard);
 
     section.hidden = false;
+
+    // Fragment navigation may happen before the asynchronous list exists,
+    // or via Back/Forward after its target was filtered out.
+    function followFragment() {
+      var id;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; }
+      if (!id) return;
+      if (!document.getElementById(id) && pubs.some(function (pub) {
+        return id === "pub-" + slug(pub.title.split(/[\s:]/)[0]);
+      })) showAll();
+      var target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+    window.addEventListener("hashchange", followFragment);
+    followFragment();
   }
 
   /* ---- boot ---------------------------------------------- */
