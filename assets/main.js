@@ -297,7 +297,7 @@
           if (p.title.indexOf(a.getAttribute("data-pub")) === 0) { pub = p; return true; }
           return false;
         });
-        if (pub) {
+        if (pub && a.classList.contains("cite")) {
           var card = el("span", "cite-card");
           card.appendChild(el("span", "cite-card-title", pub.title));
           var venue = pub.venue + (pub.toappear ? " \u00b7 To appear" : "");
