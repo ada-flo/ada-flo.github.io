@@ -104,7 +104,7 @@
         "agents",
         "evaluation"
       ],
-      "tldr": "Tests whether GUI agents ground their answers in evidence actually observed during navigation, separating surface task success from verified success.",
+      "tldr": "Checks whether agents base their answers on what they actually saw while using an app.",
       "thumb": "assets/img/evident.jpg"
     },
     {
@@ -138,7 +138,7 @@
         "multimodal",
         "retrieval"
       ],
-      "tldr": "Scores multi-turn image retrieval at every turn, so each user update becomes an observable state transition instead of only the final target counting.",
+      "tldr": "Checks whether image search follows each new user instruction, rather than just finding the right image at the end.",
       "thumb": "assets/img/tracecir.png"
     },
     {
