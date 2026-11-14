@@ -104,7 +104,7 @@
         "agents",
         "evaluation"
       ],
-      "tldr": "Checks whether agents base their answers on what they actually saw while using an app.",
+      "tldr": "A benchmark of 220 English and Korean web tasks that separately measures task completion, evidence observation, and support for agents’ answers.",
       "thumb": "assets/img/evident.jpg"
     },
     {
@@ -138,7 +138,7 @@
         "multimodal",
         "retrieval"
       ],
-      "tldr": "Checks whether image search follows each new user instruction, rather than just finding the right image at the end.",
+      "tldr": "A benchmark for image retrieval that tracks changing user constraints at every turn, paired with a training-free method for handling revisions.",
       "thumb": "assets/img/tracecir.png"
     },
     {
