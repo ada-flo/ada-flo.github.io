@@ -138,7 +138,7 @@
         "multimodal",
         "retrieval"
       ],
-      "tldr": "A benchmark for image retrieval that tracks changing user constraints at every turn, paired with a training-free method for handling revisions.",
+      "tldr": "TraceCIR pairs turn-by-turn evaluation of image retrieval with a training-free method that tracks changing user intent and removes outdated constraints.",
       "thumb": "assets/img/tracecir.png"
     },
     {
