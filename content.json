@@ -105,7 +105,10 @@
         "evaluation"
       ],
       "tldr": "A benchmark of 220 English and Korean web tasks that separately measures task completion, evidence observation, and support for agents’ answers.",
-      "thumb": "assets/img/evident.jpg"
+      "thumb": "assets/img/evident.jpg",
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2611.20488"
+      }
     },
     {
       "title": "TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval",
